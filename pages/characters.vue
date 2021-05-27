@@ -79,26 +79,15 @@ export default {
 
   async mounted() {
     await this.getData()
-    await this.loadMore()
-  },
 
-  created() {
-    // // eslint-disable-next-line nuxt/no-globals-in-created
-    // window.onscroll = () => {
-    //   const bottomOfWindow =
-    //     // eslint-disable-next-line nuxt/no-globals-in-created
-    //     document.documentElement.scrollTop + window.innerHeight ===
-    //     // eslint-disable-next-line nuxt/no-globals-in-created
-    //     document.documentElement.offsetHeight
-    //   if (bottomOfWindow) {
-    //     this.loadMore()
-    //   }
-    // }
-    // // eslint-disable-next-line nuxt/no-globals-in-created
-    // window.addEventListener('scroll', () => {
-    //   // this.bottom = this.bottomVisible()
-    //   console.log('test')
-    // })
+    window.onscroll = () => {
+      const bottomOfWindow =
+        document.documentElement.scrollTop + window.innerHeight ===
+        document.documentElement.offsetHeight
+      if (bottomOfWindow) {
+        this.loadMore()
+      }
+    }
   },
 
   methods: {
