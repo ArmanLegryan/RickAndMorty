@@ -129,6 +129,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   display: block;
+  max-width: 200px;
 }
 
 .status {
