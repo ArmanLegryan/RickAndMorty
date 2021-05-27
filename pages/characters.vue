@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="pt-16">
     <h1>Characters</h1>
 
     <div class="position-sticky">

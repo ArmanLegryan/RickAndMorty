@@ -1,3 +1,13 @@
 .v-text-field__details {
   display: none !important;
 }
+
+.navigator {
+  top: 56px !important;
+}
+
+@media (min-width: 960px) {
+  .navigator {
+    top: 64px !important;
+  }
+}
