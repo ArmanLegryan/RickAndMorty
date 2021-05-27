@@ -40,6 +40,14 @@
           <v-card-title class="name"> {{ character.name }} </v-card-title>
           <v-card-subtitle> {{ character.species }} </v-card-subtitle>
           <v-card-subtitle class="pt-0 text-right">
+            <span
+              class="status"
+              :class="{
+                alive: character.status === 'Alive',
+                dead: character.status === 'Dead',
+                unknown: character.status === 'unknown',
+              }"
+            ></span>
             {{ character.status }}
           </v-card-subtitle>
         </v-card>
@@ -71,6 +79,7 @@ export default {
 
   async mounted() {
     await this.getData()
+    console.log(this.characters)
   },
 
   created() {
@@ -128,5 +137,22 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   display: block;
+}
+
+.status {
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.alive {
+  background: green;
+}
+.dead {
+  background: red;
+}
+.unknown {
+  background: grey;
 }
 </style>
