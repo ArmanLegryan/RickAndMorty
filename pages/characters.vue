@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <main>
     <h1 class="mb-5">Characters</h1>
 
     <v-row>
@@ -39,10 +39,13 @@
           <v-img :src="character.image" height="250px"></v-img>
           <v-card-title class="name"> {{ character.name }} </v-card-title>
           <v-card-subtitle> {{ character.species }} </v-card-subtitle>
+          <v-card-subtitle class="pt-0 text-right">
+            {{ character.status }}
+          </v-card-subtitle>
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </main>
 </template>
 
 <script>
@@ -56,6 +59,7 @@ export default {
       name: null,
       gender: null,
       status: null,
+      page: 1,
     }
   },
 
@@ -93,13 +97,13 @@ export default {
       getCharacters: 'characters/getCharacters',
     }),
 
-    async getData(page = 1) {
+    async getData() {
       if (this.cancelToken) {
         this.cancelToken()
       }
       await this.getCharacters({
         params: {
-          page,
+          page: this.page,
           status: this.status,
           gender: this.gender,
           name: this.name,
