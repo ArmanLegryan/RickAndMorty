@@ -30,7 +30,7 @@
       <v-toolbar-title v-text="title" />
     </v-app-bar>
 
-    <v-main>
+    <v-main class="pt-16">
       <v-container>
         <nuxt />
       </v-container>
