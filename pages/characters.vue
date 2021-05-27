@@ -34,7 +34,7 @@
     </v-row>
 
     <v-row>
-      <v-col v-for="character of characters" :key="character.id">
+      <v-col v-for="(character, idx) of characters" :key="idx">
         <v-card class="mx-auto" max-width="260">
           <v-img :src="character.image" height="250px"></v-img>
           <v-card-title class="name"> {{ character.name }} </v-card-title>
@@ -79,7 +79,7 @@ export default {
 
   async mounted() {
     await this.getData()
-    console.log(this.characters)
+    await this.loadMore()
   },
 
   created() {
@@ -104,6 +104,7 @@ export default {
   methods: {
     ...mapActions({
       getCharacters: 'characters/getCharacters',
+      getMoreCharacters: 'characters/getMoreCharacters',
     }),
 
     async getData() {
@@ -126,7 +127,9 @@ export default {
       )
     },
 
-    loadMore() {},
+    async loadMore() {
+      await this.getMoreCharacters(this.page++)
+    },
   },
 }
 </script>

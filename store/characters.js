@@ -33,11 +33,23 @@ export const actions = {
       )
     commit('SET_CHARACTERS', data)
   },
+
+  async getMoreCharacters({ commit }, pageNumber) {
+    const data = await axios
+      .get(`${URL}?page=${pageNumber}`)
+      .then(({ data }) => data.results)
+
+    commit('SET_NEW_CHARACTERS', data)
+  },
 }
 
 export const mutations = {
   SET_CHARACTERS(state, characters) {
     state.characters = characters
+  },
+
+  SET_NEW_CHARACTERS(state, data) {
+    state.characters.push(...data)
   },
 }
 
