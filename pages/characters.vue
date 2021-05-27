@@ -1,0 +1,128 @@
+<template>
+  <v-container>
+    <h1 class="mb-5">Characters</h1>
+
+    <v-row>
+      <v-col md="4" cols="12">
+        <v-text-field
+          v-model="name"
+          label="Name"
+          outlined
+          @input="() => getData()"
+        ></v-text-field>
+      </v-col>
+
+      <v-col md="4" cols="12">
+        <v-select
+          v-model="status"
+          :items="statuses"
+          label="Status"
+          outlined
+          @change="getData"
+        ></v-select>
+      </v-col>
+
+      <v-col md="4" cols="12">
+        <v-select
+          v-model="gender"
+          :items="genders"
+          label="Gender"
+          outlined
+          @change="getData"
+        ></v-select>
+      </v-col>
+    </v-row>
+
+    <v-row>
+      <v-col v-for="character of characters" :key="character.id">
+        <v-card class="mx-auto" max-width="260">
+          <v-img :src="character.image" height="250px"></v-img>
+          <v-card-title class="name"> {{ character.name }} </v-card-title>
+          <v-card-subtitle> {{ character.species }} </v-card-subtitle>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
+  data() {
+    return {
+      genders: ['female', 'male', 'genderless', 'unknown'],
+      statuses: ['alive', 'dead', 'unknown'],
+      name: null,
+      gender: null,
+      status: null,
+    }
+  },
+
+  computed: {
+    ...mapGetters({
+      characters: 'characters/characters',
+    }),
+  },
+
+  async mounted() {
+    await this.getData()
+  },
+
+  created() {
+    // // eslint-disable-next-line nuxt/no-globals-in-created
+    // window.onscroll = () => {
+    //   const bottomOfWindow =
+    //     // eslint-disable-next-line nuxt/no-globals-in-created
+    //     document.documentElement.scrollTop + window.innerHeight ===
+    //     // eslint-disable-next-line nuxt/no-globals-in-created
+    //     document.documentElement.offsetHeight
+    //   if (bottomOfWindow) {
+    //     this.loadMore()
+    //   }
+    // }
+    // // eslint-disable-next-line nuxt/no-globals-in-created
+    // window.addEventListener('scroll', () => {
+    //   // this.bottom = this.bottomVisible()
+    //   console.log('test')
+    // })
+  },
+
+  methods: {
+    ...mapActions({
+      getCharacters: 'characters/getCharacters',
+    }),
+
+    async getData(page = 1) {
+      if (this.cancelToken) {
+        this.cancelToken()
+      }
+      await this.getCharacters({
+        params: {
+          page,
+          status: this.status,
+          gender: this.gender,
+          name: this.name,
+        },
+        assignToken: (token) => {
+          this.cancelToken = token
+        },
+      }).then(
+        () => {},
+        (err) => err
+      )
+    },
+
+    loadMore() {},
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+.name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+</style>
