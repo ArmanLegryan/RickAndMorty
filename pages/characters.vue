@@ -1,37 +1,39 @@
 <template>
   <main>
-    <h1 class="mb-5">Characters</h1>
+    <h1>Characters</h1>
 
-    <v-row>
-      <v-col md="4" cols="12">
-        <v-text-field
-          v-model="name"
-          label="Name"
-          outlined
-          @input="() => getData()"
-        ></v-text-field>
-      </v-col>
+    <div class="position-sticky">
+      <v-row>
+        <v-col md="4" cols="12">
+          <v-text-field
+            v-model="name"
+            label="Name"
+            outlined
+            @input="() => getData()"
+          ></v-text-field>
+        </v-col>
 
-      <v-col md="4" cols="12">
-        <v-select
-          v-model="status"
-          :items="statuses"
-          label="Status"
-          outlined
-          @change="getData"
-        ></v-select>
-      </v-col>
+        <v-col md="4" cols="12">
+          <v-select
+            v-model="status"
+            :items="statuses"
+            label="Status"
+            outlined
+            @change="getData"
+          ></v-select>
+        </v-col>
 
-      <v-col md="4" cols="12">
-        <v-select
-          v-model="gender"
-          :items="genders"
-          label="Gender"
-          outlined
-          @change="getData"
-        ></v-select>
-      </v-col>
-    </v-row>
+        <v-col md="4" cols="12">
+          <v-select
+            v-model="gender"
+            :items="genders"
+            label="Gender"
+            outlined
+            @change="getData"
+          ></v-select>
+        </v-col>
+      </v-row>
+    </div>
 
     <v-row>
       <v-col v-for="(character, idx) of characters" :key="idx">
@@ -124,6 +126,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.position-sticky {
+  position: sticky;
+  top: 55px;
+  background: #121212;
+  z-index: 1;
+  padding-top: 25px;
+  margin-bottom: 16px;
+}
+
 .name {
   overflow: hidden;
   text-overflow: ellipsis;
